@@ -16,9 +16,4 @@ TableCell.propTypes = {
   tooltip: PropTypes.string
 };
 
-TableCell.defaultProps = {
-  children: null,
-  tooltip: null
-};
-
 export default TableCell;

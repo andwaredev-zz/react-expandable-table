@@ -5,25 +5,36 @@ import TableBodyCell from '../src/TableBodyCell';
 import TableCell from '../src/TableCell';
 
 describe('TableBodyCell', () => {
+  const props = {
+    cellData: 'blah1',
+    children: <h3>blah2</h3>,
+    className: 'foobar',
+    tooltip: 'blah1-tooltip'
+  };
+
+  let component;
+  beforeEach(() => {
+    component = shallow(<TableBodyCell {...props} />);
+  });
+
   it('renders without error', () => {
-    const component = shallow(<TableBodyCell />);
     expect(component.exists()).toBeTruthy();
   });
 
-  const cellData = 'blah1';
-  const tooltip = 'blah1-tooltip';
-
   it('renders a td wrapping a TableCell', () => {
-    const component = shallow(<TableBodyCell cellData={cellData} tooltip={tooltip} />);
     const td = component.find('td');
     expect(td).toHaveLength(1);
     expect(td.find(TableCell)).toHaveLength(1);
   });
 
+  it('sets component className appropriately', () => {
+    expect(component.first().prop('className')).toEqual(expect.stringContaining(props.className));
+  });
+
   it('passes appropriate props to TableCell', () => {
-    const component = shallow(<TableBodyCell cellData={cellData} tooltip={tooltip} />);
+    const { cellData, children, tooltip } = props;
     const tableCellProps = component.find(TableCell).props();
-    expect(tableCellProps.children).toEqual(cellData);
+    expect(tableCellProps.children).toEqual([cellData, children]);
     expect(tableCellProps.tooltip).toEqual(tooltip);
   });
 });

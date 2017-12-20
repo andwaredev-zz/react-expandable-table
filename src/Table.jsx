@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import TableBody from './TableBody';
 import TableHead from './TableHead';
@@ -23,13 +24,13 @@ class Table extends React.Component {
   }
 
   render() {
-    const { columns, dataSource, onRowClick } = this.props;
+    const { columns, dataSource, isBordered, onRowClick, onRowExpand } = this.props;
 
     return (
-      <div className="react-table">
+      <div className={classNames('react-table', { bordered: isBordered })}>
         <table>
-          <TableHead cells={this.getTableHeadCells()} />
-          <TableBody columns={columns} dataSource={dataSource} onRowClick={onRowClick} />
+          <TableHead cells={this.getTableHeadCells()} isExpandable={!!onRowExpand} />
+          <TableBody columns={columns} dataSource={dataSource} onRowClick={onRowClick} onRowExpand={onRowExpand} />
         </table>
       </div>
     );
@@ -41,7 +42,8 @@ Table.propTypes = {
     PropTypes.shape({
       key: PropTypes.string,
       /**
-       * Function to generate a custom tooltip string for the specific data cell
+       * Function to generate a custom tooltip string for the specific data cell.
+       * If not provided, the tooltip will default to cellData, if it can be parsed into a string.
        *
        * (cellData, rowData) => string
        */
@@ -55,17 +57,26 @@ Table.propTypes = {
     })
   ),
   dataSource: PropTypes.arrayOf(PropTypes.object),
+  isBordered: PropTypes.bool,
   /**
    * Function to be invoked when a row is clicked
    *
-   * (rowData, rowIndex) => void
+   * Function(rowData, rowIndex):void
    */
-  onRowClick: PropTypes.func
+  onRowClick: PropTypes.func,
+  /**
+   * Function to be invoked when a row expand icon is clicked
+   * The expand icon will be included by default if you provide a onRowExpand function
+   *
+   * Function(rowData, rowIndex):ReactNode|[ReactNode]
+   */
+  onRowExpand: PropTypes.func
 };
 
 Table.defaultProps = {
   columns: [],
-  dataSource: []
+  dataSource: [],
+  isBordered: false
 };
 
 export default Table;

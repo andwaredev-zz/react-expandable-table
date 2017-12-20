@@ -66,6 +66,13 @@ describe('Table', () => {
     expect(component.find(TableHead)).toHaveLength(1);
   });
 
+  it('passes appropriate props to TableHead', () => {
+    const component = shallow(<Table columns={columns} onRowExpand={sinon.stub()} />);
+    const tableHeadProps = component.find(TableHead).props();
+    expect(tableHeadProps.cells).toEqual(component.instance().getTableHeadCells());
+    expect(tableHeadProps.isExpandable).toEqual(true);
+  });
+
   it('passes result of getTableHeadCells as cells prop to TableHead', () => {
     const component = shallow(<Table columns={columns} />);
     expect(component.find(TableHead).prop('cells')).toEqual(component.instance().getTableHeadCells());
@@ -73,10 +80,22 @@ describe('Table', () => {
 
   it('passes appropriate props to TableBody', () => {
     const onRowClickStub = sinon.stub();
-    const component = shallow(<Table columns={columns} dataSource={dataSource} onRowClick={onRowClickStub} />);
+    const onRowExpandStub = sinon.stub();
+    const component = shallow(
+      <Table columns={columns} dataSource={dataSource} onRowClick={onRowClickStub} onRowExpand={onRowExpandStub} />
+    );
     const tableBodyProps = component.find(TableBody).props();
     expect(tableBodyProps.columns).toEqual(columns);
     expect(tableBodyProps.dataSource).toEqual(dataSource);
     expect(tableBodyProps.onRowClick).toEqual(onRowClickStub);
+    expect(tableBodyProps.onRowExpand).toEqual(onRowExpandStub);
+  });
+
+  it('sets className appropriately based on isBordered prop', () => {
+    const withoutBorder = shallow(<Table isBordered={false} />);
+    expect(withoutBorder.first().prop('className')).not.toEqual(expect.stringContaining('bordered'));
+
+    const withBorder = shallow(<Table isBordered={true} />);
+    expect(withBorder.first().prop('className')).toEqual(expect.stringContaining('bordered'));
   });
 });

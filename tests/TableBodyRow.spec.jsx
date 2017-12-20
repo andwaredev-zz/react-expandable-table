@@ -4,6 +4,7 @@ import sinon from 'sinon';
 
 import TableBodyRow from '../src/TableBodyRow';
 import TableBodyCell from '../src/TableBodyCell';
+import TableBodyExpandCell from '../src/TableBodyExpandCell';
 
 describe('TableBodyRow', () => {
   const props = {
@@ -37,6 +38,7 @@ describe('TableBodyRow', () => {
     ],
     idx: 0,
     onClick: sinon.spy(),
+    onExpandClick: sinon.spy,
     rowData: {
       key: 'one',
       name: 'john',
@@ -66,9 +68,45 @@ describe('TableBodyRow', () => {
       const { dataTooltip, key } = columns[idx];
       const cellData = rowData[key];
       expect(tableBodyCell.key()).toEqual(`0_tbody_tr_${key}_td`);
-      expect(tableBodyCell.prop('cellData')).toEqual(cellData || null);
-      expect(tableBodyCell.prop('tooltip')).toEqual(dataTooltip ? dataTooltip(cellData, rowData) : null);
+      expect(tableBodyCell.prop('cellData')).toEqual(cellData);
+      expect(tableBodyCell.prop('tooltip')).toEqual(dataTooltip ? dataTooltip(cellData, rowData) : undefined);
     });
+  });
+
+  it('if not isExpandable, does not render TableBodyExpandCell', () => {
+    const expandableComponent = shallow(<TableBodyRow {...props} isExpandable={false} />);
+    expect(expandableComponent.find(TableBodyExpandCell)).toHaveLength(0);
+  });
+
+  it('if isExpandable, renders TableBodyExpandCell', () => {
+    const expandableComponent = shallow(<TableBodyRow {...props} isExpandable={true} />);
+    expect(expandableComponent.find(TableBodyExpandCell)).toHaveLength(1);
+  });
+
+  it('if isExpandable, renders TableBodyExpandCell in leftmost column, pushes other cells down 1', () => {
+    const expandableComponent = shallow(<TableBodyRow {...props} isExpandable={true} />);
+    expect(
+      expandableComponent
+        .children()
+        .at(0)
+        .type()
+    ).toEqual(TableBodyExpandCell);
+
+    for (let i = 1; i < 5; i += 1) {
+      expect(
+        expandableComponent
+          .children()
+          .at(i)
+          .type()
+      ).toEqual(TableBodyCell);
+    }
+  });
+
+  it('sets TableBodyExpandCell onClick prop to handleExpandClick instance method', () => {
+    const expandableComponent = shallow(<TableBodyRow {...props} isExpandable />);
+    expect(expandableComponent.find(TableBodyExpandCell).prop('onClick')).toEqual(
+      expandableComponent.instance().handleExpandClick
+    );
   });
 
   it('handleClick instance method calls onClick prop (if defined) with rowData, and rowIndex', () => {
