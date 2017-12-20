@@ -1,0 +1,24 @@
+table {
+  table-layout: fixed;
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+td,
+th {
+  border: solid 1px black;
+  text-align: left;
+  overflow: hidden;
+}
+
+.table-cell {
+  padding: 4px 8px;
+}
+
+.table-cell,
+.table-cell > * {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
