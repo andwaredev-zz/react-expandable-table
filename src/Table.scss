@@ -32,6 +32,12 @@
     padding: 16px 8px;
   }
 
+  .tbody-empty td {
+    text-align: center;
+    padding: 16px;
+    font-size: 12px;
+  }
+
   .table-row.clickable {
     cursor: pointer;
 

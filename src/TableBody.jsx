@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import TableBodyEmpty from './TableBodyEmpty';
 import TableBodyRow from './TableBodyRow';
 import TableBodyExpandedRow from './TableBodyExpandedRow';
 
@@ -24,8 +25,12 @@ class TableBody extends React.Component {
   }
 
   render() {
-    const { columns, dataSource, onRowClick, onRowExpand } = this.props;
+    const { columns, dataSource, emptyText, onRowClick, onRowExpand } = this.props;
     const { expandedRowIndices } = this.state;
+
+    if (dataSource.length < 1) {
+      return <TableBodyEmpty columnsCount={columns.length} text={emptyText} />;
+    }
 
     return (
       <tbody>
@@ -60,6 +65,7 @@ TableBody.propTypes = {
     })
   ),
   dataSource: PropTypes.arrayOf(PropTypes.object),
+  emptyText: PropTypes.string,
   /**
    * Function to be invoked when a row is clicked
    *

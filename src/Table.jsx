@@ -24,13 +24,19 @@ class Table extends React.Component {
   }
 
   render() {
-    const { columns, dataSource, isBordered, onRowClick, onRowExpand } = this.props;
+    const { columns, dataSource, emptyText, isBordered, onRowClick, onRowExpand } = this.props;
 
     return (
       <div className={classNames('react-table', { bordered: isBordered })}>
         <table>
           <TableHead cells={this.getTableHeadCells()} isExpandable={!!onRowExpand} />
-          <TableBody columns={columns} dataSource={dataSource} onRowClick={onRowClick} onRowExpand={onRowExpand} />
+          <TableBody
+            columns={columns}
+            dataSource={dataSource}
+            emptyText={emptyText}
+            onRowClick={onRowClick}
+            onRowExpand={onRowExpand}
+          />
         </table>
       </div>
     );
@@ -57,6 +63,10 @@ Table.propTypes = {
     })
   ),
   dataSource: PropTypes.arrayOf(PropTypes.object),
+  /**
+   * Text to be displayed when dataSource is empty or undefined
+   */
+  emptyText: PropTypes.string,
   isBordered: PropTypes.bool,
   /**
    * Function to be invoked when a row is clicked
@@ -76,6 +86,7 @@ Table.propTypes = {
 Table.defaultProps = {
   columns: [],
   dataSource: [],
+  emptyText: 'No Data',
   isBordered: false
 };
 

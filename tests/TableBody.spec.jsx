@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import sinon from 'sinon';
 
 import TableBody from '../src/TableBody';
+import TableBodyEmpty from '../src/TableBodyEmpty';
 import TableBodyRow from '../src/TableBodyRow';
 import TableBodyExpandedRow from '../src/TableBodyExpandedRow';
 
@@ -51,21 +52,33 @@ describe('TableBody', () => {
         col4: 'hello'
       }
     ],
+    emptyText: 'hello world',
     onRowClick: sinon.stub(),
     onRowExpand: sinon.stub()
   };
 
+  const setupComponent = propOverrides => shallow(<TableBody {...props} {...propOverrides} />);
+
   let component;
   beforeEach(() => {
-    component = shallow(<TableBody {...props} />);
-  });
-
-  afterEach(() => {
-    //
+    component = setupComponent();
   });
 
   it('renders without error', () => {
     expect(component.exists()).toBeTruthy();
+  });
+
+  it('renders TableBodyEmpty if dataSource is empty', () => {
+    const emptyComponent = setupComponent({ dataSource: [] });
+    expect(emptyComponent.first().type()).toEqual(TableBodyEmpty);
+  });
+
+  it('passes down appropriate props to TableBodyEmpty if dataSource is empty', () => {
+    const { columns, emptyText } = props;
+    const emptyComponent = setupComponent({ dataSource: [] });
+    const tableBodyEmptyProps = emptyComponent.first().props();
+    expect(tableBodyEmptyProps.columnsCount).toEqual(columns.length);
+    expect(tableBodyEmptyProps.text).toEqual(emptyText);
   });
 
   it('renders a TableBodyRow for each element in dataSource', () => {
