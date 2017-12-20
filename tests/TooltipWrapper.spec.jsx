@@ -29,6 +29,12 @@ describe('TooltipWrapper', () => {
     expect(wrapperDiv.prop('title')).toEqual('child');
   });
 
+  it('sets wrapper div title prop to first child if tooltip not provided, and if children is an array of values', () => {
+    const component = shallow(<TooltipWrapper>{['child1', 'child2']}</TooltipWrapper>);
+    const wrapperDiv = component.find('div');
+    expect(wrapperDiv.prop('title')).toEqual('child1');
+  });
+
   it('does not set wrapper div title prop if tooltip not provided, and if child is not a string', () => {
     const component = shallow(
       <TooltipWrapper>

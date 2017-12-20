@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { parseString } from './tableUtil';
+
 class TooltipWrapper extends React.Component {
   constructor() {
     super();
@@ -15,8 +17,16 @@ class TooltipWrapper extends React.Component {
       return tooltip;
     }
 
-    if (typeof children === 'string') {
-      return children;
+    const parsedChildren = parseString(children);
+    if (parsedChildren) {
+      return parsedChildren;
+    }
+
+    if (Array.isArray(children)) {
+      const parsedChild = parseString(children[0]);
+      if (parsedChild) {
+        return parsedChild;
+      }
     }
 
     return undefined;
