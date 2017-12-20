@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import sinon from 'sinon';
 
 import Table from '../src/Table';
 import TableBody from '../src/TableBody';
@@ -71,9 +72,11 @@ describe('Table', () => {
   });
 
   it('passes appropriate props to TableBody', () => {
-    const component = shallow(<Table columns={columns} dataSource={dataSource} />);
+    const onRowClickStub = sinon.stub();
+    const component = shallow(<Table columns={columns} dataSource={dataSource} onRowClick={onRowClickStub} />);
     const tableBodyProps = component.find(TableBody).props();
     expect(tableBodyProps.columns).toEqual(columns);
     expect(tableBodyProps.dataSource).toEqual(dataSource);
+    expect(tableBodyProps.onRowClick).toEqual(onRowClickStub);
   });
 });

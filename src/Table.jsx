@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import TableBody from './TableBody';
 import TableHead from './TableHead';
 
-import './Table.css';
+import './Table.scss';
 
 class Table extends React.Component {
   constructor() {
@@ -23,13 +23,13 @@ class Table extends React.Component {
   }
 
   render() {
-    const { columns, dataSource } = this.props;
+    const { columns, dataSource, onRowClick } = this.props;
 
     return (
-      <div>
+      <div className="react-table">
         <table>
           <TableHead cells={this.getTableHeadCells()} />
-          <TableBody columns={columns} dataSource={dataSource} />
+          <TableBody columns={columns} dataSource={dataSource} onRowClick={onRowClick} />
         </table>
       </div>
     );
@@ -54,7 +54,13 @@ Table.propTypes = {
       width: PropTypes.number
     })
   ),
-  dataSource: PropTypes.arrayOf(PropTypes.object)
+  dataSource: PropTypes.arrayOf(PropTypes.object),
+  /**
+   * Function to be invoked when a row is clicked
+   *
+   * (rowData, rowIndex) => void
+   */
+  onRowClick: PropTypes.func
 };
 
 Table.defaultProps = {

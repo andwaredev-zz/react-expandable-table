@@ -41,6 +41,25 @@ const config = {
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              outputStyle: 'expanded',
+              data: '@import "src/variables";',
+              includePaths: [path.join(__dirname, 'src')]
+            }
+          }
+        ]
       }
     ]
   },

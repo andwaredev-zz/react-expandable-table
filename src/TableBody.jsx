@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 
 import TableBodyRow from './TableBodyRow';
 
-function TableBody({ columns, dataSource }) {
+function TableBody({ columns, dataSource, onRowClick }) {
   return (
     <tbody>
-      {dataSource.map((rowData, idx) => <TableBodyRow key={idx} idx={idx} columns={columns} rowData={rowData} />)}
+      {dataSource.map((rowData, idx) => (
+        <TableBodyRow key={idx} idx={idx} columns={columns} onClick={onRowClick} rowData={rowData} />
+      ))}
     </tbody>
   );
 }
@@ -20,7 +22,8 @@ TableBody.propTypes = {
       width: PropTypes.number
     })
   ),
-  dataSource: PropTypes.arrayOf(PropTypes.object)
+  dataSource: PropTypes.arrayOf(PropTypes.object),
+  onRowClick: PropTypes.func
 };
 
 TableBody.defaultProps = {
