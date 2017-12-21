@@ -95,8 +95,8 @@ Table.propTypes = {
   emptyText: PropTypes.string,
   /**
    * Optional custom render to be used for the row expand button.
-   * Make sure your custom node calls the provided `onClick` function.
-   * Optionally, you can also use the provided `isExpanded` boolean if you'd like to conditionally render based on the current row's `isExpanded` state
+   * Make sure your custom node calls the provided onClick function.
+   * Optionally, you can also use the provided isExpanded boolean if you'd like to conditionally render based on the current row's isExpanded state
    *
    * Function({ onClick, isExpanded }):ReactNode|[ReactNode]
    */
@@ -112,14 +112,14 @@ Table.propTypes = {
   /**
    * Function to be invoked when a row is clicked.
    *
-   * `Function(rowData, rowIndex):void`
+   * Function(rowData, rowIndex):void
    */
   onRowClick: PropTypes.func,
   /**
    * Function to be invoked when a row expand icon is clicked
-   * The expand icon will be included by default if you provide an `onRowExpand` function.
+   * The expand icon will be included by default if you provide an onRowExpand function.
    *
-   * `Function(rowData, rowIndex):ReactNode|[ReactNode]`
+   * Function(rowData, rowIndex):ReactNode|[ReactNode]
    */
   onRowExpand: PropTypes.func
 };

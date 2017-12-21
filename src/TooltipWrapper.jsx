@@ -14,7 +14,7 @@ class TooltipWrapper extends React.Component {
     const { children, tooltip } = this.props;
 
     if (tooltip) {
-      return tooltip;
+      return parseString(tooltip);
     }
 
     const parsedChildren = parseString(children);
@@ -35,18 +35,16 @@ class TooltipWrapper extends React.Component {
   render() {
     const { children } = this.props;
 
-    return <div title={this.getTitle()}>{children}</div>;
+    const parsedChildren =
+      typeof children === 'boolean' || typeof children === 'number' ? parseString(children) : children;
+
+    return <div title={this.getTitle()}>{parsedChildren}</div>;
   }
 }
 
 TooltipWrapper.propTypes = {
-  children: PropTypes.node,
-  tooltip: PropTypes.string
-};
-
-TooltipWrapper.defaultProps = {
-  children: null,
-  tooltip: null
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.bool]),
+  tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool])
 };
 
 export default TooltipWrapper;

@@ -12,8 +12,8 @@ function TableCell({ children, tooltip }) {
 }
 
 TableCell.propTypes = {
-  children: PropTypes.node,
-  tooltip: PropTypes.string
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.bool]),
+  tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool])
 };
 
 export default TableCell;

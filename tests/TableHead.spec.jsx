@@ -16,17 +16,14 @@ describe('TableHead', () => {
       },
       {
         key: 'col2',
-        title: 'Col Two',
         width: 1
       },
       {
         key: 'col3',
-        title: 'Col Three',
         width: 1
       },
       {
         key: 'col4',
-        title: 'Col Four',
         width: 1
       }
     ],
@@ -58,7 +55,7 @@ describe('TableHead', () => {
       const cell = cells[idx];
       expect(th.prop('style').width).toEqual(`calc(${cell.width * 100 / totalWidth}% - ${expandCellWidth}px)`);
       expect(th.find(TableCell).prop('tooltip')).toEqual(cell.titleTooltip);
-      expect(th.find(TableCell).prop('children')).toEqual(cell.title);
+      expect(th.find(TableCell).prop('children')).toEqual(cell.title || cell.key);
     });
   });
 
