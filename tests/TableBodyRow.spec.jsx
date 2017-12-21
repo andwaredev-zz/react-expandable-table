@@ -14,25 +14,21 @@ describe('TableBodyRow', () => {
         title: 'Col One',
         titleTooltip: 'Column One',
         dataTooltip: (cellData, rowData) => `${rowData.name}_${cellData}`,
-        render: text => <span>1: {text}</span>,
         width: 1
       },
       {
         key: 'col2',
         title: 'Col Two',
-        render: text => <span>2: {text}</span>,
         width: 1
       },
       {
         key: 'col3',
         title: 'Col Three',
-        render: text => <span>3: {text}</span>,
         width: 1
       },
       {
         key: 'col4',
         title: 'Col Four',
-        render: text => <span>4: {text}</span>,
         width: 1
       }
     ],
@@ -69,7 +65,7 @@ describe('TableBodyRow', () => {
       const cellData = rowData[key];
       expect(tableBodyCell.key()).toEqual(`0_tbody_tr_${key}_td`);
       expect(tableBodyCell.prop('cellData')).toEqual(cellData);
-      expect(tableBodyCell.prop('tooltip')).toEqual(dataTooltip ? dataTooltip(cellData, rowData) : undefined);
+      expect(tableBodyCell.prop('tooltip')).toEqual(dataTooltip ? dataTooltip(cellData, rowData) : cellData);
     });
   });
 
@@ -93,6 +89,29 @@ describe('TableBodyRow', () => {
     expect(handleExpandClickSpy.called).toBeTruthy();
     expect(handleExpandClickSpy.firstCall.args[0]).toEqual(fakeEvent);
     expect(tableBodyExpandCellProps.isExpanded).toEqual(true);
+  });
+
+  it('if column.render is a function, passes custom rendered node as child to TableBodyCell', () => {
+    const expandableComponent = shallow(
+      <TableBodyRow
+        {...props}
+        columns={[
+          {
+            ...props.columns[0],
+            render: cellData => <h1>{cellData}</h1>
+          },
+          ...props.columns.slice(1)
+        ]}
+        isExpandable={true}
+        isExpanded={true}
+      />
+    );
+    const tableBodyCells = expandableComponent.find(TableBodyCell);
+
+    expect(tableBodyCells.at(0).prop('children')).toEqual(<h1>{props.rowData[props.columns[0].key]}</h1>);
+    for (let i = 1; i < props.columns.length; i += 1) {
+      expect(tableBodyCells.at(i).prop('children')).toBeUndefined();
+    }
   });
 
   it('if isExpandable, renders TableBodyExpandCell in leftmost column, pushes other cells down 1', () => {

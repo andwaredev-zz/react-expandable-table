@@ -41,14 +41,16 @@ class TableBodyRow extends React.Component {
         onClick={this.handleClick}
       >
         {isExpandable && <TableBodyExpandCell onClick={this.handleExpandClick} isExpanded={isExpanded} />}
-        {columns.map(({ key, dataTooltip }) => {
+        {columns.map(({ key, dataTooltip, render }) => {
           const cellData = rowData[key];
           return (
             <TableBodyCell
               key={`${idx}_tbody_tr_${key}_td`}
               cellData={cellData}
-              tooltip={dataTooltip ? dataTooltip(cellData, rowData) : undefined}
-            />
+              tooltip={dataTooltip && typeof dataTooltip === 'function' ? dataTooltip(cellData, rowData) : cellData}
+            >
+              {render && typeof render === 'function' && render(cellData, rowData, idx)}
+            </TableBodyCell>
           );
         })}
       </tr>
@@ -60,8 +62,31 @@ TableBodyRow.propTypes = {
   columns: PropTypes.arrayOf(
     PropTypes.shape({
       key: PropTypes.string,
+      /**
+       * Function to generate a custom tooltip string for the specific data cell.
+       * If not provided, the tooltip will default to cellData, if it can be parsed into a string.
+       *
+       * `Function(cellData, rowData):string`
+       */
+      dataTooltip: PropTypes.func,
+      /**
+       * Optional custom render to be used for the column data cell.
+       *
+       * `Function(cellData, rowData, rowIndex):ReactNode|[ReactNode]`
+       */
+      render: PropTypes.func,
+      /**
+       * Optional custom node to be used for the column title.
+       */
       title: PropTypes.node,
+      /**
+       * Optional tooltip for the column's title (th), defaults to `column.title` (if string parsable)
+       */
       titleTooltip: PropTypes.string,
+      /**
+       * Optional number to be used to represent what percentage of the total width this column should span.
+       * Similar to the css `flex-grow` property.
+       */
       width: PropTypes.number
     })
   ),

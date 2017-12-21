@@ -51,34 +51,53 @@ Table.propTypes = {
        * Function to generate a custom tooltip string for the specific data cell.
        * If not provided, the tooltip will default to cellData, if it can be parsed into a string.
        *
-       * (cellData, rowData) => string
+       * `Function(cellData, rowData):string`
        */
       dataTooltip: PropTypes.func,
+      /**
+       * Optional custom render to be used for the column data cell.
+       *
+       * `Function(cellData, rowData, rowIndex):ReactNode|[ReactNode]`
+       */
+      render: PropTypes.func,
+      /**
+       * Optional custom node to be used for the column title.
+       */
       title: PropTypes.node,
       /**
-       * Optional tooltip for the column's title (th), defaults to column.title (if string)
+       * Optional tooltip for the column's title (th), defaults to `column.title` (if string parsable)
        */
       titleTooltip: PropTypes.string,
+      /**
+       * Optional number to be used to represent what percentage of the total width this column should span.
+       * Similar to the css `flex-grow` property.
+       */
       width: PropTypes.number
     })
   ),
+  /**
+   * An array of objects, each containing key-value pairs, where the keys correspond to column keys
+   */
   dataSource: PropTypes.arrayOf(PropTypes.object),
   /**
    * Text to be displayed when dataSource is empty or undefined
    */
   emptyText: PropTypes.string,
+  /**
+   * If true, the table will be styled with borders.
+   */
   isBordered: PropTypes.bool,
   /**
-   * Function to be invoked when a row is clicked
+   * Function to be invoked when a row is clicked.
    *
-   * Function(rowData, rowIndex):void
+   * `Function(rowData, rowIndex):void`
    */
   onRowClick: PropTypes.func,
   /**
    * Function to be invoked when a row expand icon is clicked
-   * The expand icon will be included by default if you provide a onRowExpand function
+   * The expand icon will be included by default if you provide an `onRowExpand` function.
    *
-   * Function(rowData, rowIndex):ReactNode|[ReactNode]
+   * `Function(rowData, rowIndex):ReactNode|[ReactNode]`
    */
   onRowExpand: PropTypes.func
 };

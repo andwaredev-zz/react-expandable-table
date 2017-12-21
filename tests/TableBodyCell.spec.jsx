@@ -32,9 +32,9 @@ describe('TableBodyCell', () => {
   });
 
   it('passes appropriate props to TableCell', () => {
-    const { cellData, children, tooltip } = props;
+    const { children, tooltip } = props;
     const tableCellProps = component.find(TableCell).props();
-    expect(tableCellProps.children).toEqual([cellData, children]);
+    expect(tableCellProps.children).toEqual(children);
     expect(tableCellProps.tooltip).toEqual(tooltip);
   });
 });

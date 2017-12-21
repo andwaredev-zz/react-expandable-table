@@ -7,10 +7,7 @@ import TableCell from './TableCell';
 function TableBodyCell({ cellData, children, className, tooltip }) {
   return (
     <td className={classNames('table-body-cell', className)}>
-      <TableCell tooltip={tooltip}>
-        {cellData}
-        {children}
-      </TableCell>
+      <TableCell tooltip={tooltip}>{children || cellData}</TableCell>
     </td>
   );
 }
