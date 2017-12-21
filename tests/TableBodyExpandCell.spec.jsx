@@ -9,7 +9,8 @@ import TableBodyExpandCellButton from '../src/TableBodyExpandCellButton';
 describe('TableBodyExpandCell', () => {
   let component;
   const props = {
-    onClick: sinon.stub()
+    onClick: sinon.stub(),
+    isExpanded: true
   };
 
   beforeEach(() => {
@@ -39,12 +40,13 @@ describe('TableBodyExpandCell', () => {
     ).toEqual(TableBodyExpandCellButton);
   });
 
-  it('passes onClick prop down to TableBodyExpandCellButton', () => {
-    expect(
-      component
-        .first()
-        .children()
-        .prop('onClick')
-    ).toEqual(props.onClick);
+  it('passes appropriate props down to TableBodyExpandCellButton', () => {
+    const tableBodyExpandCellButtonProps = component
+      .first()
+      .children()
+      .props();
+
+    expect(tableBodyExpandCellButtonProps.onClick).toEqual(props.onClick);
+    expect(tableBodyExpandCellButtonProps.isExpanded).toEqual(props.isExpanded);
   });
 });

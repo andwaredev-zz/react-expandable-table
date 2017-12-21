@@ -10,8 +10,12 @@ describe('TableBodyExpandCellButton', () => {
   };
 
   let component;
+  const setupComponent = propOverrides => {
+    component = shallow(<TableBodyExpandCellButton {...props} {...propOverrides} />);
+  };
+
   beforeEach(() => {
-    component = shallow(<TableBodyExpandCellButton {...props} />);
+    setupComponent();
   });
 
   it('renders without error', () => {
@@ -24,5 +28,15 @@ describe('TableBodyExpandCellButton', () => {
 
   it('passes onClick prop down to button', () => {
     expect(component.find('button').prop('onClick')).toEqual(props.onClick);
+  });
+
+  it('shows - if isExpanded', () => {
+    setupComponent({ isExpanded: true });
+    expect(component.find('button').text()).toEqual('-');
+  });
+
+  it('shows + if not isExpanded', () => {
+    setupComponent({ isExpanded: false });
+    expect(component.find('button').text()).toEqual('+');
   });
 });

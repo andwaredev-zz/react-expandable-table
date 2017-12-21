@@ -83,6 +83,18 @@ describe('TableBodyRow', () => {
     expect(expandableComponent.find(TableBodyExpandCell)).toHaveLength(1);
   });
 
+  it('passes appropriate props to TableBodyExpandCell', () => {
+    const handleExpandClickSpy = sinon.spy(TableBodyRow.prototype, 'handleExpandClick');
+    const expandableComponent = shallow(<TableBodyRow {...props} isExpandable={true} isExpanded={true} />);
+    const tableBodyExpandCellProps = expandableComponent.find(TableBodyExpandCell).props();
+    expect(handleExpandClickSpy.called).toBeFalsy();
+    const fakeEvent = { foo: 'bar' };
+    tableBodyExpandCellProps.onClick(fakeEvent);
+    expect(handleExpandClickSpy.called).toBeTruthy();
+    expect(handleExpandClickSpy.firstCall.args[0]).toEqual(fakeEvent);
+    expect(tableBodyExpandCellProps.isExpanded).toEqual(true);
+  });
+
   it('if isExpandable, renders TableBodyExpandCell in leftmost column, pushes other cells down 1', () => {
     const expandableComponent = shallow(<TableBodyRow {...props} isExpandable={true} />);
     expect(

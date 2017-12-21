@@ -88,6 +88,10 @@ describe('TableBody', () => {
 
   it('passes appropriate props to each TableBodyRow', () => {
     const { columns, dataSource, onRowClick } = props;
+
+    component.setState({ expandedRowIndices: { 0: true } });
+    component.update();
+
     const tableBodyRows = component.find(TableBodyRow);
     tableBodyRows.forEach((tableBodyRow, idx) => {
       expect(tableBodyRow.key()).toEqual(idx.toString());
@@ -97,6 +101,12 @@ describe('TableBody', () => {
       expect(tableBodyRow.prop('isExpandable')).toEqual(true);
       expect(tableBodyRow.prop('onExpandClick')).toEqual(component.instance().toggleRowExpand);
       expect(tableBodyRow.prop('rowData')).toEqual(dataSource[idx]);
+
+      if (idx === 0) {
+        expect(tableBodyRow.prop('isExpanded')).toEqual(true);
+      } else {
+        expect(tableBodyRow.prop('isExpanded')).toEqual(false);
+      }
     });
   });
 

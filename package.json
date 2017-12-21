@@ -8,7 +8,9 @@
     "start": "webpack-dev-server",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "lint": "eslint --ext .js,.jsx ."
+    "lint": "eslint --ext .js,.jsx .",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build"
   },
   "keywords": [],
   "author": "",
@@ -44,6 +46,7 @@
     "node-sass": "^4.7.2",
     "prettier": "^1.9.2",
     "progress-bar-webpack-plugin": "^1.10.0",
+    "react-styleguidist": "^6.1.0",
     "sass-loader": "^6.0.6",
     "sinon": "^4.1.3",
     "style-loader": "^0.19.1",

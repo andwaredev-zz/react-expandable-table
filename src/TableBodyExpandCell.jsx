@@ -4,20 +4,22 @@ import PropTypes from 'prop-types';
 import TableBodyCell from './TableBodyCell';
 import TableBodyExpandCellButton from './TableBodyExpandCellButton';
 
-function TableBodyExpandCell({ onClick }) {
+function TableBodyExpandCell({ onClick, isExpanded }) {
   return (
     <TableBodyCell className="expandable-table-body-cell" tooltip="expand row">
-      <TableBodyExpandCellButton onClick={onClick} />
+      <TableBodyExpandCellButton onClick={onClick} isExpanded={isExpanded} />
     </TableBodyCell>
   );
 }
 
 TableBodyExpandCell.propTypes = {
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  isExpanded: PropTypes.bool
 };
 
 TableBodyExpandCell.defaultProps = {
-  onClick: () => {}
+  onClick: () => {},
+  isExpanded: false
 };
 
 export default TableBodyExpandCell;

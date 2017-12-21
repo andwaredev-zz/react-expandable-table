@@ -34,22 +34,27 @@ class TableBody extends React.Component {
 
     return (
       <tbody>
-        {dataSource.map((rowData, idx) => [
-          <TableBodyRow
-            key={idx}
-            idx={idx}
-            columns={columns}
-            onClick={onRowClick}
-            isExpandable={!!onRowExpand}
-            onExpandClick={this.toggleRowExpand}
-            rowData={rowData}
-          />,
-          expandedRowIndices[idx] ? (
-            <TableBodyExpandedRow key={`${idx}-expanded-row`} columnsCount={columns.length}>
-              {onRowExpand(rowData, idx)}
-            </TableBodyExpandedRow>
-          ) : null
-        ])}
+        {dataSource.map((rowData, idx) => {
+          const isExpanded = expandedRowIndices[idx];
+
+          return [
+            <TableBodyRow
+              key={idx}
+              idx={idx}
+              columns={columns}
+              onClick={onRowClick}
+              isExpandable={!!onRowExpand}
+              isExpanded={isExpanded}
+              onExpandClick={this.toggleRowExpand}
+              rowData={rowData}
+            />,
+            isExpanded ? (
+              <TableBodyExpandedRow key={`${idx}-expanded-row`} columnsCount={columns.length}>
+                {onRowExpand(rowData, idx)}
+              </TableBodyExpandedRow>
+            ) : null
+          ];
+        })}
       </tbody>
     );
   }

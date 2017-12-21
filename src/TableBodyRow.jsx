@@ -40,7 +40,7 @@ class TableBodyRow extends React.Component {
         className={classNames('table-row', { clickable: !!onClick, expandable: isExpandable, expanded: isExpanded })}
         onClick={this.handleClick}
       >
-        {isExpandable && <TableBodyExpandCell onClick={this.handleExpandClick} />}
+        {isExpandable && <TableBodyExpandCell onClick={this.handleExpandClick} isExpanded={isExpanded} />}
         {columns.map(({ key, dataTooltip }) => {
           const cellData = rowData[key];
           return (
