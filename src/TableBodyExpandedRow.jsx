@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function TableBodyExpandedRow({ children, columnsCount }) {
   return (
-    <tr>
+    <tr className="expanded-table-row">
       <td className="table-body-expanded-row-empty-td" />
       <td colSpan={columnsCount}>{children}</td>
     </tr>

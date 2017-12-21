@@ -7,14 +7,18 @@ import TableBodyExpandCell from '../src/TableBodyExpandCell';
 import TableBodyExpandCellButton from '../src/TableBodyExpandCellButton';
 
 describe('TableBodyExpandCell', () => {
-  let component;
   const props = {
     onClick: sinon.stub(),
     isExpanded: true
   };
 
+  let component;
+  const setupComponent = propOverrides => {
+    component = shallow(<TableBodyExpandCell {...props} {...propOverrides} />);
+  };
+
   beforeEach(() => {
-    component = shallow(<TableBodyExpandCell {...props} />);
+    setupComponent();
   });
 
   it('renders without error', () => {
@@ -29,6 +33,14 @@ describe('TableBodyExpandCell', () => {
     const tableBodyCellProps = component.first().props();
     expect(tableBodyCellProps.tooltip).toEqual('expand row');
     expect(tableBodyCellProps.className).toEqual('expandable-table-body-cell');
+  });
+
+  it('if expandButtonRender is a function, passes expandButtonRender custom node to TableBodyCell as child', () => {
+    const fakeNode = <span>hello world</span>;
+    setupComponent({ expandButtonRender: sinon.stub().returns(fakeNode) });
+
+    const tableBodyCellProps = component.first().props();
+    expect(tableBodyCellProps.children).toEqual(fakeNode);
   });
 
   it('passes TableBodyExpandCellButton down as child to TableBodyCell', () => {

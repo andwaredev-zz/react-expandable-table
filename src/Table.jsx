@@ -24,7 +24,7 @@ class Table extends React.Component {
   }
 
   render() {
-    const { columns, dataSource, emptyText, isBordered, onRowClick, onRowExpand } = this.props;
+    const { columns, dataSource, emptyText, expandButtonRender, isBordered, onRowClick, onRowExpand } = this.props;
 
     return (
       <div className={classNames('react-table', { bordered: isBordered })}>
@@ -34,6 +34,7 @@ class Table extends React.Component {
             columns={columns}
             dataSource={dataSource}
             emptyText={emptyText}
+            expandButtonRender={expandButtonRender}
             onRowClick={onRowClick}
             onRowExpand={onRowExpand}
           />
@@ -83,6 +84,14 @@ Table.propTypes = {
    * Text to be displayed when dataSource is empty or undefined
    */
   emptyText: PropTypes.string,
+  /**
+   * Optional custom render to be used for the row expand button.
+   * Make sure your custom node calls the provided `onClick` function.
+   * Optionally, you can also use the provided `isExpanded` boolean if you'd like to conditionally render based on the current row's `isExpanded` state
+   *
+   * Function({ onClick, isExpanded }):ReactNode|[ReactNode]
+   */
+  expandButtonRender: PropTypes.func,
   /**
    * If true, the table will be styled with borders.
    */

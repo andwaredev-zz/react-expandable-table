@@ -25,7 +25,7 @@ class TableBody extends React.Component {
   }
 
   render() {
-    const { columns, dataSource, emptyText, onRowClick, onRowExpand } = this.props;
+    const { columns, dataSource, emptyText, expandButtonRender, onRowClick, onRowExpand } = this.props;
     const { expandedRowIndices } = this.state;
 
     if (dataSource.length < 1) {
@@ -33,7 +33,7 @@ class TableBody extends React.Component {
     }
 
     return (
-      <tbody>
+      <tbody className="table-body">
         {dataSource.map((rowData, idx) => {
           const isExpanded = expandedRowIndices[idx];
 
@@ -42,9 +42,10 @@ class TableBody extends React.Component {
               key={idx}
               idx={idx}
               columns={columns}
-              onClick={onRowClick}
               isExpandable={!!onRowExpand}
               isExpanded={isExpanded}
+              expandButtonRender={expandButtonRender}
+              onClick={onRowClick}
               onExpandClick={this.toggleRowExpand}
               rowData={rowData}
             />,
@@ -100,6 +101,14 @@ TableBody.propTypes = {
    * Text to be displayed when dataSource is empty or undefined
    */
   emptyText: PropTypes.string,
+  /**
+   * Optional custom render to be used for the row expand button.
+   * Make sure your custom node calls the provided `onClick` function.
+   * Optionally, you can also use the provided `isExpanded` boolean if you'd like to conditionally render based on the current row's `isExpanded` state
+   *
+   * Function({ onClick, isExpanded }):ReactNode|[ReactNode]
+   */
+  expandButtonRender: PropTypes.func,
   /**
    * Function to be invoked when a row is clicked.
    *

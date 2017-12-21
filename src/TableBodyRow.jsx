@@ -33,14 +33,20 @@ class TableBodyRow extends React.Component {
   }
 
   render() {
-    const { columns, idx, isExpandable, isExpanded, onClick, rowData } = this.props;
+    const { columns, idx, isExpandable, isExpanded, expandButtonRender, onClick, rowData } = this.props;
 
     return (
       <tr
         className={classNames('table-row', { clickable: !!onClick, expandable: isExpandable, expanded: isExpanded })}
         onClick={this.handleClick}
       >
-        {isExpandable && <TableBodyExpandCell onClick={this.handleExpandClick} isExpanded={isExpanded} />}
+        {isExpandable && (
+          <TableBodyExpandCell
+            onClick={this.handleExpandClick}
+            isExpanded={isExpanded}
+            expandButtonRender={expandButtonRender}
+          />
+        )}
         {columns.map(({ key, dataTooltip, render }) => {
           const cellData = rowData[key];
           return (
@@ -90,6 +96,14 @@ TableBodyRow.propTypes = {
       width: PropTypes.number
     })
   ),
+  /**
+   * Optional custom render to be used for the row expand button.
+   * Make sure your custom node calls the provided `onClick` function.
+   * Optionally, you can also use the provided `isExpanded` boolean if you'd like to conditionally render based on the current row's `isExpanded` state
+   *
+   * Function({ onClick, isExpanded }):ReactNode|[ReactNode]
+   */
+  expandButtonRender: PropTypes.func,
   /**
    * The row index
    */

@@ -35,6 +35,7 @@ describe('Table', () => {
       }
     ],
     emptyText: 'hello world',
+    expandButtonRender: sinon.stub(),
     onRowClick: sinon.stub(),
     onRowExpand: sinon.stub()
   };
@@ -83,13 +84,14 @@ describe('Table', () => {
   });
 
   it('passes appropriate props to TableBody', () => {
-    const { columns, dataSource, emptyText, onRowClick, onRowExpand } = props;
+    const { columns, dataSource, emptyText, expandButtonRender, onRowClick, onRowExpand } = props;
     const tableBodyProps = component.find(TableBody).props();
     expect(tableBodyProps.columns).toEqual(columns);
     expect(tableBodyProps.dataSource).toEqual(dataSource);
     expect(tableBodyProps.onRowClick).toEqual(onRowClick);
     expect(tableBodyProps.onRowExpand).toEqual(onRowExpand);
     expect(tableBodyProps.emptyText).toEqual(emptyText);
+    expect(tableBodyProps.expandButtonRender).toEqual(expandButtonRender);
   });
 
   it('sets className appropriately based on isBordered prop', () => {

@@ -32,6 +32,7 @@ describe('TableBodyRow', () => {
         width: 1
       }
     ],
+    expandButtonRender: sinon.stub(),
     idx: 0,
     onClick: sinon.spy(),
     onExpandClick: sinon.spy,
@@ -89,6 +90,7 @@ describe('TableBodyRow', () => {
     expect(handleExpandClickSpy.called).toBeTruthy();
     expect(handleExpandClickSpy.firstCall.args[0]).toEqual(fakeEvent);
     expect(tableBodyExpandCellProps.isExpanded).toEqual(true);
+    expect(tableBodyExpandCellProps.expandButtonRender).toEqual(props.expandButtonRender);
   });
 
   it('if column.render is a function, passes custom rendered node as child to TableBodyCell', () => {

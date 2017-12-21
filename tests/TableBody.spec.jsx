@@ -53,6 +53,7 @@ describe('TableBody', () => {
       }
     ],
     emptyText: 'hello world',
+    expandButtonRender: sinon.stub(),
     onRowClick: sinon.stub(),
     onRowExpand: sinon.stub()
   };
@@ -87,7 +88,7 @@ describe('TableBody', () => {
   });
 
   it('passes appropriate props to each TableBodyRow', () => {
-    const { columns, dataSource, onRowClick } = props;
+    const { columns, dataSource, expandButtonRender, onRowClick } = props;
 
     component.setState({ expandedRowIndices: { 0: true } });
     component.update();
@@ -97,9 +98,10 @@ describe('TableBody', () => {
       expect(tableBodyRow.key()).toEqual(idx.toString());
       expect(tableBodyRow.prop('idx')).toEqual(idx);
       expect(tableBodyRow.prop('columns')).toEqual(columns);
-      expect(tableBodyRow.prop('onClick')).toEqual(onRowClick);
       expect(tableBodyRow.prop('isExpandable')).toEqual(true);
+      expect(tableBodyRow.prop('expandButtonRender')).toEqual(expandButtonRender);
       expect(tableBodyRow.prop('onExpandClick')).toEqual(component.instance().toggleRowExpand);
+      expect(tableBodyRow.prop('onClick')).toEqual(onRowClick);
       expect(tableBodyRow.prop('rowData')).toEqual(dataSource[idx]);
 
       if (idx === 0) {
