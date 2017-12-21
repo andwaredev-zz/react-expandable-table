@@ -24,12 +24,21 @@ class Table extends React.Component {
   }
 
   render() {
-    const { columns, dataSource, emptyText, expandButtonRender, isBordered, onRowClick, onRowExpand } = this.props;
+    const {
+      columns,
+      dataSource,
+      emptyText,
+      expandButtonRender,
+      expandCellWidth,
+      isBordered,
+      onRowClick,
+      onRowExpand
+    } = this.props;
 
     return (
       <div className={classNames('react-table', { bordered: isBordered })}>
         <table>
-          <TableHead cells={this.getTableHeadCells()} isExpandable={!!onRowExpand} />
+          <TableHead cells={this.getTableHeadCells()} expandCellWidth={expandCellWidth} isExpandable={!!onRowExpand} />
           <TableBody
             columns={columns}
             dataSource={dataSource}
@@ -93,6 +102,10 @@ Table.propTypes = {
    */
   expandButtonRender: PropTypes.func,
   /**
+   * The [fixed] width (in pixels) of the expand row button cell.
+   */
+  expandCellWidth: PropTypes.number,
+  /**
    * If true, the table will be styled with borders.
    */
   isBordered: PropTypes.bool,
@@ -114,6 +127,7 @@ Table.propTypes = {
 Table.defaultProps = {
   columns: [],
   dataSource: [],
+  expandCellWidth: 50,
   emptyText: 'No Data',
   isBordered: false
 };

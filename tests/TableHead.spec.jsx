@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import TableHead, { expandCellWidth } from '../src/TableHead';
+import TableHead from '../src/TableHead';
 import TableCell from '../src/TableCell';
 import { getTotalWidth } from '../src/tableUtil';
 
@@ -29,7 +29,8 @@ describe('TableHead', () => {
         title: 'Col Four',
         width: 1
       }
-    ]
+    ],
+    expandCellWidth: 60
   };
 
   let component;
@@ -50,12 +51,12 @@ describe('TableHead', () => {
   });
 
   it('passes approrpiate props to each TableCell', () => {
-    const { cells } = props;
+    const { cells, expandCellWidth } = props;
     const ths = component.find('th');
     const totalWidth = getTotalWidth(cells);
     ths.forEach((th, idx) => {
       const cell = cells[idx];
-      expect(th.prop('style').width).toEqual(`calc(${cell.width * 100 / totalWidth}% - ${expandCellWidth})`);
+      expect(th.prop('style').width).toEqual(`calc(${cell.width * 100 / totalWidth}% - ${expandCellWidth}px)`);
       expect(th.find(TableCell).prop('tooltip')).toEqual(cell.titleTooltip);
       expect(th.find(TableCell).prop('children')).toEqual(cell.title);
     });

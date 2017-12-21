@@ -169,7 +169,10 @@ const exampleProps = {
     }
   ],
   isBordered: true,
-  expandButtonRender: ({ isExpanded, onClick }) => <button onClick={onClick}>{isExpanded ? 'x' : 'o'}</button>,
+  expandButtonRender: ({ isExpanded, onClick }) => (
+    <button onClick={onClick}>{isExpanded ? 'hide' : 'show'} details</button>
+  ),
+  expandCellWidth: 105,
   onRowExpand: rowData => <div style={{ padding: '24px' }}>{rowData.key}</div>
 };
 

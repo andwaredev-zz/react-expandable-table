@@ -36,6 +36,7 @@ describe('Table', () => {
     ],
     emptyText: 'hello world',
     expandButtonRender: sinon.stub(),
+    expandCellWidth: 60,
     onRowClick: sinon.stub(),
     onRowExpand: sinon.stub()
   };
@@ -76,6 +77,7 @@ describe('Table', () => {
   it('passes appropriate props to TableHead', () => {
     const tableHeadProps = component.find(TableHead).props();
     expect(tableHeadProps.cells).toEqual(component.instance().getTableHeadCells());
+    expect(tableHeadProps.expandCellWidth).toEqual(props.expandCellWidth);
     expect(tableHeadProps.isExpandable).toEqual(true);
   });
 

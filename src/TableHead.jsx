@@ -4,21 +4,19 @@ import PropTypes from 'prop-types';
 import TableCell from './TableCell';
 import { getTotalWidth } from './tableUtil';
 
-export const expandCellWidth = '50px';
-
-function TableHead({ cells, isExpandable }) {
+function TableHead({ cells, expandCellWidth, isExpandable }) {
   const totalWidth = getTotalWidth(cells);
 
   return (
     <thead className="table-head">
       <tr className="table-head-row">
         {isExpandable && (
-          <th className="expand-th" key="expandable_thead_th" style={{ width: expandCellWidth }}>
+          <th className="expand-th" key="expandable_thead_th" style={{ width: `${expandCellWidth}px` }}>
             <TableCell />
           </th>
         )}
         {cells.map(({ key, title, titleTooltip, width }) => (
-          <th key={`${key}_thead_th`} style={{ width: `calc(${width * 100 / totalWidth}% - ${expandCellWidth})` }}>
+          <th key={`${key}_thead_th`} style={{ width: `calc(${width * 100 / totalWidth}% - ${expandCellWidth}px)` }}>
             <TableCell tooltip={titleTooltip}>{title}</TableCell>
           </th>
         ))}
@@ -37,6 +35,10 @@ TableHead.propTypes = {
     })
   ),
   /**
+   * The [fixed] width (in pixels) of the expand row button cell.
+   */
+  expandCellWidth: PropTypes.number,
+  /**
    * Is this table an expandable table?
    * If true, renders an empty th first in the leftmost column
    */
@@ -45,6 +47,7 @@ TableHead.propTypes = {
 
 TableHead.defaultProps = {
   cells: [],
+  expandCellWidth: 50,
   isExpandable: false
 };
 
