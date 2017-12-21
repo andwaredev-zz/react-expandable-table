@@ -1,12 +1,3 @@
-foo:
-
-```jsx
-<Table
-  columns={[{ key: 'red' }, { key: 'blue' }]}
-  dataSource={[{ red: true, blue: false }, { red: false, blue: true }]}
-/>
-```
-
 Basic Example:
 
 ```jsx
