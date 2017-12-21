@@ -1,27 +1,16 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const webpack = require('webpack');
 
-const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: './src/index.html',
-  filename: 'index.html',
-  inject: 'body'
-});
-
-const basePath = path.resolve(__dirname, 'dist');
+const APP_PATH = path.resolve(__dirname, 'src');
 
 const config = {
-  entry: './src/index.jsx',
+  entry: path.join(APP_PATH, 'Table.jsx'),
   output: {
-    filename: '[name].bundle.js',
-    path: basePath,
-    publicPath: '/'
-  },
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: basePath,
-    hot: true
+    path: path.join(__dirname, 'dist'),
+    filename: 'index.js',
+    library: 'aw-table',
+    libraryTarget: 'umd',
+    umdNamedDefine: true
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -63,7 +52,7 @@ const config = {
       }
     ]
   },
-  plugins: [HtmlWebpackPluginConfig, new webpack.HotModuleReplacementPlugin(), new ProgressBarPlugin()]
+  plugins: [new ProgressBarPlugin()]
 };
 
 module.exports = config;
