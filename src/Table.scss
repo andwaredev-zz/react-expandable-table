@@ -5,9 +5,9 @@
   font-size: 13px;
   font-weight: 300;
 
-  &.bordered {
-    td,
-    th {
+  &.bordered > table {
+    & > thead > tr > th,
+    & > tbody > tr > td {
       border: $basic-border;
     }
   }
@@ -22,14 +22,14 @@
   td,
   th {
     overflow: hidden;
-    padding: 10px 8px;
+    padding: 0;
     text-align: left;
   }
 
   th {
     border-bottom: $basic-border;
     font-weight: 400;
-    padding: 16px 8px;
+    padding: 6px 0;
   }
 
   .tbody-empty td {
@@ -47,7 +47,7 @@
   }
 
   .table-cell {
-    padding: 2px 4px;
+    padding: 12px;
   }
 
   .table-cell {

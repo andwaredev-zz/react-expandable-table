@@ -124,7 +124,7 @@ const exampleProps = {
     }
   ],
   isBordered: true,
-  onRowExpand: rowData => <h1>{rowData.key}</h1>
+  onRowExpand: rowData => <div style={{ padding: '24px' }}>{rowData.key}</div>
 };
 
 <Table {...exampleProps} />;
