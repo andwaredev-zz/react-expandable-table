@@ -1,5 +1,5 @@
 .react-table {
-  $basic-border: solid 1px $light-grey;
+  $basic-border: solid 1px $grey;
 
   font-family: sans-serif;
   font-size: 13px;
@@ -42,7 +42,7 @@
     cursor: pointer;
 
     &:hover {
-      background-color: $lightest-grey;
+      background-color: $light-grey;
     }
   }
 

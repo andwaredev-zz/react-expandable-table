@@ -1,14 +1,9 @@
-# aw-table
+# react-expandable-table
 
 ## Usage
 
-Download `aw-table` from `npm`:
-`npm i -S aw-table`
-
-Then drop it into your React project like so:
-
 ```jsx
-import Table from 'aw-table';
+import Table from 'react-expandable-table';
 
 ...
 
