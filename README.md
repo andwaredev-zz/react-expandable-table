@@ -25,7 +25,7 @@ import Table from 'react-expandable-table';
     </tr>
   </thead>
   <tbody>
-    <tr><td>columns</td><td>arrayOf(shape)</td><td>[]</td><td>false</td><td></td></tr><tr><td>dataSource</td><td>arrayOf(object)</td><td>[]</td><td>false</td><td>An array of objects, each containing key-value pairs, where the keys correspond to column keys</td></tr><tr><td>emptyText</td><td>string</td><td>'No Data'</td><td>false</td><td>Text to be displayed when dataSource is empty or undefined</td></tr><tr><td>expandButtonRender</td><td>func</td><td></td><td>false</td><td>Optional custom render to be used for the row expand button.
+    <tr><td>columns</td><td>arrayOf(shape)</td><td>[]</td><td>false</td><td>See column props below</td></tr><tr><td>dataSource</td><td>arrayOf(object)</td><td>[]</td><td>false</td><td>An array of objects, each containing key-value pairs, where the keys correspond to column keys</td></tr><tr><td>emptyText</td><td>string</td><td>'No Data'</td><td>false</td><td>Text to be displayed when dataSource is empty or undefined</td></tr><tr><td>expandButtonRender</td><td>func</td><td></td><td>false</td><td>Optional custom render to be used for the row expand button.
 Make sure your custom node calls the provided onClick function.
 Optionally, you can also use the provided isExpanded boolean if you'd like to conditionally render based on the current row's isExpanded state
 
