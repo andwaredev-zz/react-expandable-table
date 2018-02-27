@@ -1,15 +1,15 @@
 {
   "name": "react-expandable-table",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Lightweight, flexible react table component, with the ability to expand rows.",
   "main": "dist/index.js",
   "scripts": {
-    "build": "npm run clean && npm run styleguide:clean && npm run styleguide:build && webpack",
+    "build": "webpack",
     "clean": "rimraf dist/",
     "lint": "eslint --ext .js,.jsx .",
-    "prepublish": "npm run build",
+    "prepublish": "npm run clean && npm run build",
     "start": "styleguidist server",
-    "styleguide:build": "styleguidist build",
+    "styleguide:build": "npm run styleguide:clean && styleguidist build",
     "styleguide:clean": "rimraf styleguide/",
     "test": "jest",
     "test:watch": "jest --watchAll"
@@ -18,9 +18,7 @@
   "author": "",
   "license": "ISC",
   "jest": {
-    "setupFiles": [
-      "./tests/setup.js"
-    ],
+    "setupFiles": ["./tests/setup.js"],
     "moduleNameMapper": {
       "\\.(css|scss)$": "<rootDir>/lib/__mocks__/styleMock.js"
     }

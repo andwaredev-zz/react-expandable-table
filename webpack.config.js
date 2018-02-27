@@ -1,14 +1,16 @@
 const path = require('path');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
-const APP_PATH = path.resolve(__dirname, 'src');
+const APP_PATH = path.join(__dirname, 'src');
 
 const config = {
-  entry: path.join(APP_PATH, 'Table.jsx'),
+  entry: {
+    'react-expandable-table': path.join(APP_PATH, 'index.js')
+  },
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'index.js',
-    library: 'aw-table',
+    library: 'react-expandable-table',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
@@ -45,7 +47,7 @@ const config = {
             options: {
               outputStyle: 'expanded',
               data: '@import "src/variables";',
-              includePaths: [path.join(__dirname, 'src')]
+              includePaths: [APP_PATH]
             }
           }
         ]
