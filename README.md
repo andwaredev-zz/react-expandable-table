@@ -1,5 +1,9 @@
 # react-expandable-table
 
+## Installation
+
+The package can be installed via npm by running: `npm install`, or `npm i` for brevity.
+
 ## Usage
 
 ```jsx
