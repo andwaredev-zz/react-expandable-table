@@ -56,7 +56,7 @@ class Table extends React.Component {
 Table.propTypes = {
   columns: PropTypes.arrayOf(
     PropTypes.shape({
-      key: PropTypes.string,
+      key: PropTypes.string.isRequired,
       /**
        * Function to generate a custom tooltip string for the specific data cell.
        * If not provided, the tooltip will default to cellData, if it can be parsed into a string.
