@@ -56,7 +56,7 @@ Function(rowData, rowIndex):ReactNode|[ReactNode]</td></tr>
     </tr>
   </thead>
   <tbody>
-    <tr><td>key</td><td>string</td><td>true</td><td>false</td><td>Unique identifier used to identify this row.</td></tr>
+    <tr><td>key</td><td>string</td><td>true</td><td>false</td><td>Unique identifier used to identify this column.</td></tr>
     <tr><td>dataTooltip</td><td>func</td><td></td><td>false</td><td>Function to generate a custom tooltip string for the specific data cell. If not provided, the tooltip will default to `cellData` if it can be parsed into a string. `Function(cellData, rowData):string`</td></tr>
     <tr><td>render</td><td>func</td><td></td><td>false</td><td>Optional custom render to be used for the column data cell. `Function(cellData, rowData, rowIndex):ReactNode|[ReactNode]`</td></tr>
     <tr><td>title</td><td>node</td><td></td><td>false</td><td>Optional custom node to be used for the column title.</td></tr>
