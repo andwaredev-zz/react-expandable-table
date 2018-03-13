@@ -48,12 +48,12 @@ describe('TableHead', () => {
   });
 
   it('passes approrpiate props to each TableCell', () => {
-    const { cells, expandCellWidth } = props;
+    const { cells } = props;
     const ths = component.find('th');
     const totalWidth = getTotalWidth(cells);
     ths.forEach((th, idx) => {
       const cell = cells[idx];
-      expect(th.prop('style').width).toEqual(`calc(${cell.width * 100 / totalWidth}% - ${expandCellWidth}px)`);
+      expect(th.prop('style').width).toEqual(`${cell.width * 100 / totalWidth}%`);
       expect(th.find(TableCell).prop('tooltip')).toEqual(cell.titleTooltip);
       expect(th.find(TableCell).prop('children')).toEqual(cell.title || cell.key);
     });
