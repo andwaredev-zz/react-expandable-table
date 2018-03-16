@@ -1,6 +1,6 @@
 {
   "name": "react-expandable-table",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Lightweight, flexible react table component, with the ability to expand rows.",
   "main": "dist/index.js",
   "scripts": {

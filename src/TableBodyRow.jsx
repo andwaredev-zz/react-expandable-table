@@ -52,7 +52,7 @@ class TableBodyRow extends React.Component {
           return (
             <TableBodyCell
               key={`${idx}_tbody_tr_${key}_td`}
-              className={`${idx}_tbody_tr_${key}_td`}
+              className={`tbody_tr_${key}_td`}
               cellData={cellData}
               tooltip={dataTooltip && typeof dataTooltip === 'function' ? dataTooltip(cellData, rowData) : cellData}
             >
