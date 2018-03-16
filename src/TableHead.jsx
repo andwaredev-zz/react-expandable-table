@@ -16,7 +16,7 @@ function TableHead({ cells, expandCellWidth, isExpandable }) {
           </th>
         )}
         {cells.map(({ key, title, titleTooltip, width }) => (
-          <th key={`${key}_thead_th`} style={{ width: `${width * 100 / totalWidth}%` }}>
+          <th key={`${key}_thead_th`} className={`${key}_thead_th`} style={{ width: `${width * 100 / totalWidth}%` }}>
             <TableCell tooltip={titleTooltip}>{title || key}</TableCell>
           </th>
         ))}
